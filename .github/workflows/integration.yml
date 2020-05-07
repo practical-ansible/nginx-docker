@@ -1,0 +1,21 @@
+name: Continuous integration
+on: push
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-docker@0.0.1
+        with:
+          docker_version: 19
+          docker_channel: stable
+      - uses: ansible/ansible-lint-action@master
+        with:
+          targets: |
+            defaults/*.yml
+            examples/*.yml
+            handlers/*.yml
+            meta/*.yml
+            tasks/*.yml

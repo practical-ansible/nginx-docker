@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-PORT=$(docker port test_ssh 22)
+docker stop hosting-test 2> /dev/null
+docker rm hosting-test 2> /dev/null
+docker build -t hosting-test .
+docker run -v /var/run/docker.sock:/var/run/docker.sock -d -P --rm --name hosting-test hosting-test
+
+PORT=$(docker port hosting-test 22 | cut -d ':' -f2)
+
+echo -e "[test]\nroot@127.0.0.1 ansible_port=${PORT} ansible_password=test" > inventory
 
 # Make role accessible
 mkdir roles 2> /dev/null
@@ -15,3 +22,5 @@ docker image rm info-test:0.1.0
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 ansible-playbook test-deploy.yml -i inventory -vvv
+
+docker rm hosting-test info-test
