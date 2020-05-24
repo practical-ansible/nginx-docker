@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - uses: docker-practice/actions-setup-docker@0.0.1
         with:
           docker_version: 19
@@ -23,5 +25,4 @@ jobs:
             meta/*.yml
             tasks/*.yml
       - name: Run test deploy
-        working-directory: ./__tests__
-        run: ./run-tests.sh
+        run: ./uatr/uatr.sh
