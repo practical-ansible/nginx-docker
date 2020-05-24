@@ -7,11 +7,17 @@
 
 Use Ansible to deploy Docker projects to Nginx with or without https. This role does not really care what language you used to create your app. Created to be used with continuous integration and continuous deployment tools.
 
+## Features
+
+* Builds or uses prebuilt docker image
+* Does not require docker registry
+* Configures https via [nginx_project](https://github.com/practical-ansible/nginx-project)
+* Automatically replaces old versions via project_name
+
 ## Prerequisities
 
 * Target user with rights to config nginx
 * Target user with rights to run docker
-* Exported docker image
 
 ## Install
 
