@@ -4,6 +4,8 @@
     that:
       - project_port is defined
       - project_port != 0
+      - project_version is defined
+      - project_version != ""
 
 - name: Configure paths
   set_fact:
