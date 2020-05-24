@@ -1,32 +1,27 @@
 ---
-- include_tasks: package.yml
-
 - name: Check required variables
   assert:
-    that: "{{ item }} is defined and {{ item | length }} > 0"
-  with_items:
-    - admin_email
-    - project_environment
-    - project_name
-    - project_port
-    - project_version
-    - server_names
-
-- name: Make project id safe
-  set_fact:
-    instance_id: 'docker-{{ project_name }}-{{ project_environment }}'
-
-- name: Configure directories
-  set_fact:
-    dir_project: '{{ projects_directory }}/{{ project_name }}'
+    that:
+      - project_port is defined
+      - project_port != 0
 
 - name: Configure paths
   set_fact:
-    dir_versions: '{{ dir_project }}/versions'
     file_image: '{{ dir_project }}/versions/{{ project_version }}.tar'
     file_image_local: '{{ image }}'
-    file_site_config: '/etc/nginx/sites-available/{{ instance_id }}.conf'
 
-- include_tasks: deps.yml
+- name: Install system dependencies
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - nginx
+      - docker.io
+      - docker
+      - docker-compose
+      - python3-distutils
+      - python3-docker
+
 - include_tasks: deploy.yml
 - include_tasks: config.yml

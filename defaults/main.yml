@@ -1,14 +1,4 @@
 ---
-# @var admin_email:description: >
-# E-mail address of the project manager. Used by Let's encrypt as a account
-# @end
-admin_email: ''
-
-# @var group:description: >
-# Unix group name that runs the project on target machine.
-# @end
-group: 'www-data'
-
 # @var client_max_body_size:description: >
 # Maximum file upload size for Nginx. Value as defined by
 # [nginx documentation](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size)
@@ -39,14 +29,6 @@ env:
 # @end
 image: ''
 
-# @var project_environment:description: >
-# Name of the project environment. The role expects that you host multiple 
-# instances of the application on one machine. The usual names are just
-# "production" and "staging", but it can be anything as long as you keep it
-# UNIX path friendly.
-# @end
-project_environment: 'production'
-
 # @var project_port:description: >
 # Inner port number of the container. The role will map this port from docker to nginx proxy|
 # @end
@@ -54,56 +36,3 @@ project_environment: 'production'
 # project_port: 3000
 # @end
 project_port: 80
-
-# @var project_name:description: >
-# Name of the project used to reference the project on host file system. Make
-# sure that this name is equal to the name of the produced docker image. Role
-# will attempt to read this from package manager metadata.
-# @end
-# @var project_name:example: >
-# project_name: 'my-app'
-# @end
-project_name: ''
-
-# @var project_version:description: >
-# Project version, important for the version store on server. Role will attempt
-# to read this from package manager metadata. The version can be overriden, for 
-# example when deploying nightly version, you can just set it to "staging" or 
-# "nightly". The version can be anything as long as you keep it UNIX path 
-# friendly.
-# @end
-# @var project_version:example: >
-# project_version: '0.1.0'
-# @end
-project_version: 'staging'
-
-# @var projects_directory:description: >
-# Directory where you usually put projects on the target machine
-# @end
-projects_directory: '/var/www'
-
-# @var server_names:description: >
-# List of hostnames used by the application. All of these will be proxied to the application.
-# @end
-# @var server_names:example: >
-# server_names: 'mysite.example.com,mysite.example.cz'
-# @end
-server_names: ''
-
-# @var ssl_sign_by:description: >
-# Authority signing the SSL certificate for the application. Can be one of: 'letsencrypt', 'self'
-# @end
-ssl_sign_by: 'letsencrypt'
-
-# @var use_ssl:description: >
-# Configure nginx to use SSL when proxying requests to the docker configuration.
-# @end
-# @var use_ssl:example: >
-# use_ssl: false
-# @end
-use_ssl: true
-
-# @var user:description: >
-# User name that runs the project on target machine.
-# @end
-user: 'www-data'

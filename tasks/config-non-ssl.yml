@@ -1,7 +1,0 @@
----
-- name: Configure nginx non-SSL config file
-  template:
-    src: nginx.conf
-    dest: '{{ file_site_config }}'
-  notify:
-    - restart nginx

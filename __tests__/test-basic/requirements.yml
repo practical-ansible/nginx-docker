@@ -1,0 +1,2 @@
+- name: practical-ansible.nginx_project
+  version: 1.2.0

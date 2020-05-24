@@ -1,0 +1,3 @@
+[submodule "uatr"]
+	path = uatr
+	url = git@github.com:practical-ansible/uatr

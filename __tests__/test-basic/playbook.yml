@@ -1,14 +1,15 @@
 ---
 - name: Deploy to testing Docker container
   hosts: test
+  vars:
+    admin_email: 'info@exmample.com'
+    project_port: 3000
+    server_names: 'localhost,www.localhost'
+    ssl_sign_by: 'self'
+    project_name: test-basic
+    project_version: 0.1.0
+    use_ssl: true
+    env:
+      print_this: 'Testing deployment: X Æ A-12'
   roles:
     - role: practical-ansible.nginx_docker
-      vars:
-        project_port: 3000
-        server_names: 'localhost,www.localhost'
-        ssl_sign_by: 'self'
-        project_name: test-basic
-        project_version: 0.1.0
-        use_ssl: true
-        env:
-          print_this: 'Testing deployment: X Æ A-12'
