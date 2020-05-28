@@ -37,7 +37,7 @@ This would be the most usual playbook
     - role: practical-ansible.nginx_docker
       vars:
         admin_email: 'admin@test.info'
-        image: 'test_app.tar'
+        image_local: 'test_app.tar'
         project_port: '3000'
         project_name: 'my-app'
         project_version: '0.1.0'
@@ -62,7 +62,8 @@ Use this to avoid Burnout Syndrome when deploying your Docker wrapped applicatio
 * [Default Variables](#default-variables)
   * [client_max_body_size](#client_max_body_size)
   * [env](#env)
-  * [image](#image)
+  * [image_local](#image_local)
+  * [image_name](#image_name)
   * [project_port](#project_port)
 * [Dependencies](#dependencies)
 * [License](#license)
@@ -90,7 +91,7 @@ Dictionary of environment variables that will be passed to the docker container.
 
 ```YAML
 env:
-  nginx_docker: true
+  nginx_docker: yes
 ```
 
 #### Example usage
@@ -101,20 +102,36 @@ env:
   SECRET_TOKEN: xa2z3ik6
 ```
 
-### image
+### image_local
 
 Path to the extracted docker image. When empty, the role will attempt to build the image on local host before uploading the image to the remote. Expects the Dockerfile to be present in the same directory as the playbook.
 
 #### Default value
 
 ```YAML
-image: ''
+image_local: ''
 ```
 
 #### Example usage
 
 ```YAML
-image: './dist/my-app.tar
+image: './dist/my-app.tar'
+```
+
+### image_name
+
+Name of image that will be pulled from the docker repository.
+
+#### Default value
+
+```YAML
+image_name: ''
+```
+
+#### Example usage
+
+```YAML
+image: 'requarks/wiki'
 ```
 
 ### project_port

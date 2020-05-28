@@ -1,16 +1,12 @@
 ---
+- name: dump
+  debug:
+    var: project_version
 - name: Check required variables
   assert:
     that:
-      - project_port is defined
-      - project_port != 0
-      - project_version is defined
-      - project_version != ""
-
-- name: Configure paths
-  set_fact:
-    file_image: '{{ dir_project }}/versions/{{ project_version }}.tar'
-    file_image_local: '{{ image }}'
+      - project_port is defined and project_port
+      - project_version is defined and project_version
 
 - name: Install system dependencies
   apt:
@@ -26,4 +22,9 @@
       - python3-docker
 
 - include_tasks: deploy.yml
+  when: not image_name
+
+- include_tasks: pull.yml
+  when: image_name is defined and image_name
+
 - include_tasks: config.yml

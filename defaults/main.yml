@@ -15,19 +15,27 @@ client_max_body_size: '1M'
 #   SECRET_TOKEN: xa2z3ik6
 # @end
 env:
-  nginx_docker: true
+  nginx_docker: 'yes'
 
-# @var image:description: >
+# @var image_local:description: >
 # Path to the extracted docker image.
 #
 # When empty, the role will attempt to build the image on local host before
 # uploading the image to the remote. Expects the Dockerfile to be present in
 # the same directory as the playbook.
 # @end
-# @var image:example: >
-# image: './dist/my-app.tar
+# @var image_local:example: >
+# image: './dist/my-app.tar'
 # @end
-image: ''
+image_local: ''
+
+# @var image_name:description: >
+# Name of image that will be pulled from the docker repository.
+# @end
+# @var image_name:example: >
+# image: 'requarks/wiki'
+# @end
+image_name: ''
 
 # @var project_port:description: >
 # Inner port number of the container. The role will map this port from docker to nginx proxy|

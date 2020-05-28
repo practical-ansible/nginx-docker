@@ -1,0 +1,25 @@
+---
+- name: Configure local image path
+  set_fact:
+    file_image_local: '{{ playbook_dir }}/{{ project_name }}-{{ project_version }}.tar'
+
+- name: Check local image archive
+  delegate_to: 127.0.0.1
+  become: false
+  stat:
+    path: '{{ file_image_local }}'
+    follow: true
+  register: image_local_stat
+
+- name: Build the image
+  delegate_to: 127.0.0.1
+  become: false
+  docker_image:
+    archive_path: '{{ file_image_local }}'
+    source: build
+    name: '{{ project_name }}'
+    tag: '{{ project_version }}'
+    state: present
+    build:
+      path: '{{ playbook_dir }}'
+  when: not image_local_stat.stat.exists

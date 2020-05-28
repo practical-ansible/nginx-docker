@@ -1,0 +1,9 @@
+---
+- name: Start container
+  register: container_status
+  docker_container:
+    env: '{{ env }}'
+    image: '{{ image_name }}:{{ project_version }}'
+    name: '{{ project_name }}'
+    published_ports: all
+    state: started

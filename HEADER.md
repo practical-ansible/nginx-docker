@@ -37,7 +37,7 @@ This would be the most usual playbook
     - role: practical-ansible.nginx_docker
       vars:
         admin_email: 'admin@test.info'
-        image: 'test_app.tar'
+        image_local: 'test_app.tar'
         project_port: '3000'
         project_name: 'my-app'
         project_version: '0.1.0'
