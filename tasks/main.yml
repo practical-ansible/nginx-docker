@@ -22,9 +22,13 @@
       - python3-docker
 
 - include_tasks: deploy.yml
-  when: not image_name
+  when: state == 'present' and not image_name
 
 - include_tasks: pull.yml
-  when: image_name is defined and image_name
+  when: state == 'present' and image_name
 
 - include_tasks: config.yml
+  when: state == 'present'
+
+- include_tasks: not-present.yml
+  when: state != 'present'

@@ -1,0 +1,13 @@
+---
+- name: Deploy to testing Docker container
+  hosts: test
+  roles:
+    - role: practical-ansible.nginx_docker
+      vars:
+        server_names: 'wiki.localhost'
+        image_name: requarks/wiki
+        project_name: wiki-js
+        project_version: '2'
+        project_port: 3000
+        use_ssl: false
+        state: absent

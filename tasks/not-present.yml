@@ -1,0 +1,16 @@
+---
+- name: Stop container
+  docker_container:
+    env: '{{ env }}'
+    image: '{{ project_name }}:{{ project_version }}'
+    name: '{{ project_name }}'
+    state: stopped
+  when: state == 'disabled'
+
+- name: Remove container
+  docker_container:
+    env: '{{ env }}'
+    image: '{{ project_name }}:{{ project_version }}'
+    name: '{{ project_name }}'
+    state: absent
+  when: state == 'absent'
