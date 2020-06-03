@@ -22,7 +22,6 @@
   copy:
     src: '{{ file_image_local }}'
     dest: '{{ file_image }}'
-    force: false
 
 - name: Import image
   docker_image:
