@@ -3,7 +3,7 @@
   docker_container:
     env: '{{ env }}'
     image: '{{ project_name }}:{{ project_version }}'
-    name: '{{ project_name }}'
+    name: '{{ container_name }}'
     state: stopped
   when: state == 'disabled'
 
@@ -11,6 +11,6 @@
   docker_container:
     env: '{{ env }}'
     image: '{{ project_name }}:{{ project_version }}'
-    name: '{{ project_name }}'
+    name: '{{ container_name }}'
     state: absent
   when: state == 'absent'

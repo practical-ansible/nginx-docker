@@ -1,7 +1,4 @@
 ---
-- name: dump
-  debug:
-    var: project_version
 - name: Check required variables
   assert:
     that:
@@ -20,6 +17,10 @@
       - docker-compose
       - python3-distutils
       - python3-docker
+
+- name: Set container name
+  set_fact:
+    container_name: '{{ project_name }}-{{ project_environment }}'
 
 - include_tasks: deploy.yml
   when: state == 'present' and not image_name

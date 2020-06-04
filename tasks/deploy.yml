@@ -38,7 +38,7 @@
   docker_container:
     env: '{{ env }}'
     image: '{{ project_name }}:{{ project_version }}'
-    name: '{{ project_name }}'
+    name: '{{ container_name }}'
     published_ports: all
     pull: false
     state: started
