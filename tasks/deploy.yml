@@ -1,7 +1,11 @@
 ---
+- name: Configure images directory
+  set_fact:
+    dir_images: '{{ dir_project }}/versions'
+
 - name: Configure paths
   set_fact:
-    file_image: '{{ dir_project }}/versions/{{ project_version }}.tar'
+    file_image: '{{ dir_images }}/{{ project_version }}.tar'
     file_image_local: '{{ image_local }}'
 
 - include_tasks: build.yml
@@ -17,6 +21,22 @@
   with_items:
     - '{{ dir_project }}'
     - '{{ dir_versions }}'
+
+- name: List remote images
+  find:
+    paths: '{{ dir_images }}'
+    recurse: true
+  register: remote_images
+
+- name: Filter old images
+  set_fact:
+    old_images: "{{ remote_images.files|sort(attribute='mtime')|map(attribute='path')|list }}"
+
+- name: Delete old images
+  file:
+    state: absent
+    path: "{{ item }}"
+  loop: "{{ old_images[0:-3] }}"
 
 - name: Upload artifact
   copy:
