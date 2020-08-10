@@ -61,4 +61,5 @@
     name: '{{ container_name }}'
     published_ports: all
     pull: false
+    restart_policy: unless-stopped
     state: started
