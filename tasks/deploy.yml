@@ -57,6 +57,7 @@
   register: container_status
   docker_container:
     env: '{{ env }}'
+    hostname: '{{ container_name }}'
     image: '{{ project_name }}:{{ project_version }}'
     name: '{{ container_name }}'
     published_ports: all
