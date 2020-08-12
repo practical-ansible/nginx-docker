@@ -1,15 +1,5 @@
 ---
-- name: Set port facts
-  set_fact:
-    container_networks: '{{ container_status.container.NetworkSettings.Networks }}'
-    container_ports: '{{ container_status.container.NetworkSettings.Ports }}'
-    container_main_port_spec: '{{ project_port }}/tcp'
-
-- name: Resolve main port
-  set_fact:
-    container_main_addr: '{{ container_networks.bridge.IPAddress }}'
-    container_main_port: '{{ container_ports[container_main_port_spec][0] }}'
-
+- include_tasks: parse-container-status.yml
 - name: Configure nginx server config file
   template:
     src: nginx-serve-content.conf

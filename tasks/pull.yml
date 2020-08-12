@@ -1,9 +1,40 @@
 ---
-- name: Start container
+- name: Read container config
+  block:
+    - name: Read container config file contents
+      shell: 'cat {{ file_container_config }}'
+      register: container_config_contents
+    - name: Parse container config
+      set_fact:
+        container_config: '{{ container_config_contents | from_json }}'
+    - name: Set container IP Address
+      set_fact:
+        container_addr: '{{ container_config.container_addr }}'
+  rescue:
+    - name: Start container to get initial address
+      register: container_status
+      docker_container:
+        env: '{{ env }}'
+        image: '{{ image_name }}:{{ project_version }}'
+        name: '{{ container_name }}'
+        network_mode: '{{ network_name }}'
+        networks:
+          - name: '{{ network_name }}'
+        networks_cli_compatible: true
+        published_ports: all
+        state: started
+    - include_tasks: parse-container-status.yml
+
+- name: Start container with persistent address
   register: container_status
   docker_container:
     env: '{{ env }}'
     image: '{{ image_name }}:{{ project_version }}'
     name: '{{ container_name }}'
+    network_mode: '{{ network_name }}'
+    networks:
+      - name: '{{ network_name }}'
+        ipv4_address: '{{ container_addr }}'
+    networks_cli_compatible: true
     published_ports: all
     state: started
