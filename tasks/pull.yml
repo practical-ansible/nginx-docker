@@ -2,7 +2,7 @@
 - name: Read container config
   block:
     - name: Read container config file contents
-      shell: 'cat {{ file_container_config }}'
+      command: 'cat {{ file_container_config }}'
       register: container_config_contents
     - name: Parse container config
       set_fact:
