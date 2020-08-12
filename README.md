@@ -64,6 +64,7 @@ Use this to avoid Burnout Syndrome when deploying your Docker wrapped applicatio
   * [env](#env)
   * [image_local](#image_local)
   * [image_name](#image_name)
+  * [network_name](#network_name)
   * [project_port](#project_port)
 * [Dependencies](#dependencies)
 * [License](#license)
@@ -132,6 +133,22 @@ image_name: ''
 
 ```YAML
 image: 'requarks/wiki'
+```
+
+### network_name
+
+Name of docker network used by this container. The role will create it if necessary
+
+#### Default value
+
+```YAML
+network_name: practical-ansible
+```
+
+#### Example usage
+
+```YAML
+network_name: 'totally-separated-network'
 ```
 
 ### project_port
