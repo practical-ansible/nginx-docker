@@ -111,3 +111,9 @@
     pull: false
     restart_policy: unless-stopped
     state: started
+
+- name: Prune docker images
+  docker_prune:
+    images: true
+    images_filters:
+      dangling: false
