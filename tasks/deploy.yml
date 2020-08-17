@@ -23,6 +23,11 @@
     - '{{ dir_project }}'
     - '{{ dir_versions }}'
 
+- name: Upload artifact
+  copy:
+    src: '{{ file_image_local }}'
+    dest: '{{ file_image }}'
+
 - name: List remote images
   find:
     paths: '{{ dir_images }}'
@@ -37,12 +42,7 @@
   file:
     state: absent
     path: "{{ item }}"
-  loop: "{{ old_images[0:-3] }}"
-
-- name: Upload artifact
-  copy:
-    src: '{{ file_image_local }}'
-    dest: '{{ file_image }}'
+  loop: "{{ old_images[0:-2] }}"
 
 - name: Import image
   docker_image:
