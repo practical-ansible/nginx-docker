@@ -27,6 +27,9 @@
   copy:
     src: '{{ file_image_local }}'
     dest: '{{ file_image }}'
+    group: '{{ group }}'
+    mode: 0660
+    owner: '{{ user }}'
 
 - name: List remote images
   find:
@@ -94,6 +97,9 @@
   template:
     src: container-config.json
     dest: '{{ file_container_config }}'
+    group: '{{ group }}'
+    mode: 0660
+    owner: '{{ user }}'
 
 - name: Start container with persistent address
   register: container_status

@@ -4,5 +4,8 @@
   template:
     src: nginx-serve-content.conf
     dest: '{{ file_server_config }}'
+    group: '{{ group }}'
+    mode: 0660
+    owner: '{{ user }}'
   notify:
     - reload nginx
