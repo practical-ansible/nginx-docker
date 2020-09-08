@@ -26,4 +26,4 @@ galaxy_info:
 
 dependencies:
   - role: practical-ansible.nginx_project
-    version: 2.1.2
+    version: 2.1.3
