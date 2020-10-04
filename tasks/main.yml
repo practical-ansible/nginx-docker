@@ -2,8 +2,7 @@
 - name: Check required variables
   assert:
     that:
-      - project_port is defined and project_port
-      - project_version is defined and project_version
+      - project_port > 0
 
 - name: Install system dependencies
   apt:
