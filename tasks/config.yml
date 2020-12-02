@@ -9,3 +9,9 @@
     owner: '{{ user }}'
   notify:
     - reload nginx
+
+- name: Start and enable docker service
+  service:
+    name: docker
+    state: started
+    enabled: true
