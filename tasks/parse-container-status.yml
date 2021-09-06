@@ -3,9 +3,7 @@
   set_fact:
     container_networks: '{{ container_status.container.NetworkSettings.Networks }}'
     container_ports: '{{ container_status.container.NetworkSettings.Ports }}'
-    container_main_port_spec: '{{ project_port }}/tcp'
 
 - name: Resolve networking
   set_fact:
     container_addr: '{{ container_networks[network_name].IPAddress }}'
-    container_main_port: '{{ container_ports[container_main_port_spec][0] }}'
