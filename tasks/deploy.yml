@@ -71,7 +71,7 @@
       register: container_config_contents
     - name: Parse container config
       set_fact:
-        container_config: '{{ container_config_contents | from_json }}'
+        container_config: '{{ container_config_contents }}'
     - name: Set container IP Address
       set_fact:
         container_addr: '{{ container_config.container_addr }}'
